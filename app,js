@@ -1,0 +1,50 @@
+const prescriptions = [];
+
+document.getElementById('scan').addEventListener('click', () => {
+    // Simulate text extraction from a scanned prescription
+    const prescriptionData = {
+        medicine: 'Medicine Name',
+        time: 'Morning',
+        frequency: 'Once a day',
+    };
+    prescriptions.push(prescriptionData);
+    displayPrescriptions();
+});
+
+document.getElementById('add').addEventListener('click', () => {
+    // Add a prescription manually
+    const medicine = prompt('Medicine Name:');
+    const time = prompt('Time to take:');
+    const frequency = prompt('Frequency:');
+    prescriptions.push({ medicine, time, frequency });
+    displayPrescriptions();
+});
+
+function displayPrescriptions() {
+    const prescriptionsDiv = document.getElementById('prescriptions');
+    prescriptionsDiv.innerHTML = '';
+
+    for (let i = 0; i < prescriptions.length; i++) {
+        const prescription = prescriptions[i];
+        const prescriptionDiv = document.createElement('div');
+        prescriptionDiv.innerHTML = `
+            <p><strong>Medicine:</strong> ${prescription.medicine}</p>
+            <p><strong>Time:</strong> ${prescription.time}</p>
+            <p><strong>Frequency:</strong> ${prescription.frequency}</p>
+            <button onclick="editPrescription(${i})">Edit</button>
+            <button onclick="deletePrescription(${i})">Delete</button>
+        `;
+        prescriptionsDiv.appendChild(prescriptionDiv);
+    }
+}
+
+function editPrescription(index) {
+    const prescription = prescriptions[index];
+    // Implement the editing functionality
+    // You can use prompts or modal dialogs for editing
+}
+
+function deletePrescription(index) {
+    prescriptions.splice(index, 1);
+    displayPrescriptions();
+}
